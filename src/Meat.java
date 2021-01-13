@@ -42,17 +42,6 @@ public class Meat extends Material {
     }
 
     @Override
-    public double getRealMoney() {
-        if(LocalDate.now().plusDays(3).isAfter(this.getManufacturingDate())){
-            return this.getAmount()*0.5;
-        } else if(LocalDate.now().plusDays(5).isAfter(this.getManufacturingDate())){
-            return this.getAmount()*0.7;
-        } else {
-            return this.getAmount()*0.9;
-        }
-    }
-
-    @Override
     public String toString() {
         return super.toString()+ "Meat{" +
                 "weight=" + weight +

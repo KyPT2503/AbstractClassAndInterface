@@ -27,16 +27,8 @@ public abstract class Material implements Discount, CanCalPriceDifferent {
         return this;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setName(String name) {
@@ -76,5 +68,27 @@ public abstract class Material implements Discount, CanCalPriceDifferent {
                 ", manufacturingDate=" + manufacturingDate +
                 ", cost=" + cost +
                 '}';
+    }
+
+    @Override
+    public double getRealMoney() {
+        if(this instanceof Meat){
+            if(LocalDate.now().plusDays(3).isAfter(this.getManufacturingDate())){
+                return this.getAmount()*0.5;
+            } else if(LocalDate.now().plusDays(5).isAfter(this.getManufacturingDate())){
+                return this.getAmount()*0.7;
+            } else {
+                return this.getAmount()*0.9;
+            }
+        } else if(this instanceof CrispyFloor) {
+            if (LocalDate.now().plusMonths(2).isAfter(this.getManufacturingDate())) {
+                return this.getAmount() * 0.6;
+            } else if (LocalDate.now().plusDays(4).isAfter(this.getManufacturingDate())) {
+                return this.getAmount() * 0.8;
+            } else {
+                return this.getAmount() * 0.95;
+            }
+        }
+        return -1;
     }
 }
